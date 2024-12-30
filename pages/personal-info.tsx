@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const PersonalInfo: React.FC = () => {
   const inputClasses: string =
@@ -8,6 +8,71 @@ const PersonalInfo: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
+  const [errors, setErrors] = useState({
+    email: "",
+  });
+
+  const validateEmail = (value: string) => {
+    if (value.length === 0) return true;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setName(value);
+  };
+
+  const handleNameKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const regex = /^[a-zA-Z\s.-]+$/;
+
+    const inputValue = (e.target as HTMLInputElement).value;
+
+    if ((e.key === "." || e.key === "-") && inputValue.length === 0) {
+      e.preventDefault();
+      return;
+    }
+
+    if (!regex.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    setErrors((prev) => ({
+      ...prev,
+      email: validateEmail(value) ? "" : "Invalid email address.",
+    }));
+  };
+
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setNumber(value);
+  };
+
+  const handleNumberKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const regex = /^[0-9+]*$/;
+    const allowedKeys = [
+      "Backspace",
+      "Delete",
+      "ArrowLeft",
+      "ArrowRight",
+      "Tab",
+      "Control",
+    ];
+
+    if (!regex.test(e.key) && !allowedKeys.includes(e.key)) {
+      e.preventDefault();
+    }
+
+    const isPlusSign = e.key === "+";
+    const shouldNotAllowToTypePlus =
+      number.startsWith("+") || number.length > 0;
+    if (isPlusSign && shouldNotAllowToTypePlus) {
+      e.preventDefault();
+    }
+  };
 
   return (
     <main className="p-4">
@@ -19,23 +84,35 @@ const PersonalInfo: React.FC = () => {
         <label className={labelClasses}>Name</label>
         <input
           type="text"
-          className={`${inputClasses} mb-3`}
+          className={`${inputClasses}`}
           placeholder="e.g. Stephen King"
-          onChange={(e) => setName(e.target.value)}
+          value={name}
+          onChange={handleNameChange}
+          onKeyDown={handleNameKeyPress}
         />
-        <label className={labelClasses}>Email Address</label>
+
+        <label className={`${labelClasses} mt-3`}>Email Address</label>
         <input
           type="text"
-          className={`${inputClasses} mb-3`}
+          className={`${inputClasses}`}
           placeholder="e.g. stephenking@lorem.com"
-          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          onChange={handleEmailChange}
         />
-        <label className={labelClasses}>Phone Number</label>
+        {errors.email && (
+          <p className="font-ubuntu-medium text-strawberry-red">
+            {errors.email}
+          </p>
+        )}
+
+        <label className={`${labelClasses} mt-3`}>Phone Number</label>
         <input
           type="text"
-          className={`${inputClasses} mb-5`}
+          className={inputClasses}
           placeholder="e.g. +1 234 567 890"
-          onChange={(e) => setNumber(e.target.value)}
+          value={number}
+          onChange={handleNumberChange}
+          onKeyDown={handleNumberKeyDown}
         />
       </div>
     </main>
