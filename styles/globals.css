@@ -7,15 +7,37 @@
   --foreground: #171717;
 }
 
+@font-face {
+  font-family: "ubuntu-bold";
+  src: url("/fonts/Ubuntu-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ubuntu-medium";
+  src: url("/fonts/Ubuntu-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ubuntu-regular";
+  src: url("/fonts/Ubuntu-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #eef5ff;
   }
 }
 
 body {
-  color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial,
+    Helvetica, sans-serif; */
+  font-family: "ubuntu-bold", "ubuntu-regular", "ubuntu-medium", Arial,
+    Helvetica, sans-serif;
 }
