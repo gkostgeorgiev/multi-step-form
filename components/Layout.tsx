@@ -1,6 +1,7 @@
 import MobileSideBarBackground from "@/assets/images/MobileSideBarBackground";
 import React, { useEffect } from "react";
 import Steps from "./Steps";
+import { useDispatch } from "react-redux";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   //   useEffect(() => {
@@ -10,6 +11,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   if (typeof window !== "undefined") {
     console.log(window.innerWidth);
   }
+
+  const dispatch = useDispatch();
 
   return (
     <main className="flex flex-col h-screen items-center relative">
