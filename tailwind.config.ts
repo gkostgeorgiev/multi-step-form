@@ -18,6 +18,7 @@ export default {
         "strawberry-red": "#ed3548",
         "cool-gray": "#9699ab",
         "light-gray": "#d6d9e6",
+        navyBlue: "#15498a",
         magnolia: "#f0f6ff",
         alabaster: "#fafbff",
       },

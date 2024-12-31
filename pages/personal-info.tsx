@@ -76,7 +76,7 @@ const PersonalInfo: React.FC = () => {
 
   return (
     <main className="p-4">
-      <h1 className="font-ubuntu-bold text-3xl mt-4 mb-6">Personal info</h1>
+      <h1 className="font-ubuntu-bold text-3xl mt-4 mb-6 text-marine-blue">Personal info</h1>
       <h2 className="font-ubuntu-regular text-xl w-full text-cool-gray tracking-tight">
         Please provide your name, email address, and phone number.
       </h2>
